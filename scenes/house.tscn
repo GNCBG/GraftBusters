@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdm0rltia3mgq"]
+
+[ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="1_d7po0"]
+[ext_resource type="Script" uid="uid://7sxyb35m0x2c" path="res://scenes/house.gd" id="1_qtlar"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk7hg"]
+atlas = ExtResource("1_d7po0")
+region = Rect2(148, 0, 74, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qtlar"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk7hg")
+}],
+"loop": true,
+"name": &"crack_house",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk7hg")
+}],
+"loop": true,
+"name": &"house",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qtlar"]
+radius = 48.7647
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rk7hg"]
+radius = 48.0937
+
+[node name="house" type="StaticBody2D"]
+script = ExtResource("1_qtlar")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qtlar")
+animation = &"crack_house"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_qtlar")
+
+[node name="attackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackRange"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_rk7hg")
+
+[node name="attackCooldownTimer" type="Timer" parent="."]
+
+[node name="demageFlashTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="destroyTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="attackRange" to="." method="_on_attackRange_body_entered"]
+[connection signal="body_exited" from="attackRange" to="." method="_on_attackRange_body_exited"]
+[connection signal="timeout" from="attackCooldownTimer" to="." method="_on_attackCooldownTimer_timeout"]
+[connection signal="timeout" from="demageFlashTimer" to="." method="_on_demageFlashTimer_timeout"]
+[connection signal="timeout" from="demageFlashTimer" to="." method="_on_attackCooldownTimer_timeout"]
+[connection signal="timeout" from="destroyTimer" to="." method="_on_destroyTimer_timeout"]
