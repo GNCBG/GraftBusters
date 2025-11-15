@@ -1,14 +1,18 @@
 extends CharacterBody2D
 
+@onready var sfx_walk = $sfx_walk
+@onready var sfx_swing = $sfx_swing
+@onready var sfx_hit_damage = $sfx_hit_damage
+
 var enemy_inattack_range = false
 var enemy_attack_cooldown = true
 var health = 1000
 var player_alive = true
 
 var attack_ip = false
-
 const speed = 100
 var current_dir = "none"
+var is_moving = false
 
 func _ready():
 	$AnimatedSprite2D.play("front_idle")
@@ -26,30 +30,43 @@ func _physics_process(delta):
 		self.queue_free()
 
 func player_movement(delta):
+	var was_moving = is_moving
+	is_moving = false
+	
 	if Input.is_action_pressed("ui_right"):
 		current_dir = "right"
 		play_anim(1)
 		velocity.x = speed
 		velocity.y = 0
+		is_moving = true
 	elif Input.is_action_pressed("ui_left"):
 		current_dir = "left"
 		play_anim(1)
 		velocity.x = -speed
 		velocity.y = 0
+		is_moving = true
 	elif Input.is_action_pressed("ui_down"):
 		current_dir = "down"
 		play_anim(1)
 		velocity.y = speed
 		velocity.x = 0
+		is_moving = true
 	elif Input.is_action_pressed("ui_up"):
 		current_dir = "up"
 		play_anim(1)
 		velocity.y = -speed
 		velocity.x = 0
+		is_moving = true
 	else:
 		play_anim(0)
 		velocity.x = 0
 		velocity.y = 0
+			
+	if is_moving && !was_moving:
+		if !sfx_walk.playing:
+			sfx_walk.play()
+	elif !is_moving && was_moving:
+		sfx_walk.stop()
 	
 	move_and_slide()
 	
@@ -118,6 +135,7 @@ func enemy_attack():
 		$attack_cooldown.start()
 		print("💢 Player got HIT by enemy!")
 		print("   HP before:", prev_hp, " -> after:", health)
+		sfx_hit_damage.play()
 
 func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = true
@@ -133,6 +151,8 @@ func attack():
 		print("🗡 Player ATTACK pressed! Direction:", dir)
 		global.player_current_attack = true
 		attack_ip = true
+		
+		sfx_swing.play()
 		
 		if dir == "right":
 			$AnimatedSprite2D.flip_h = false

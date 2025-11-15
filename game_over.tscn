@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm78jvwuubxo5"]
+
+[ext_resource type="Script" uid="uid://cw0in7o30bt70" path="res://game_over.gd" id="1_yxx3c"]
+[ext_resource type="FontFile" uid="uid://c0fa1d1x1nrx6" path="res://GrapeSoda.ttf" id="2_ccer4"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yxx3c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -381.75
+offset_top = -213.0
+offset_right = 381.75
+offset_bottom = 213.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.19966345, 0.27395758, 0.133)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 194.25
+offset_top = 111.0
+offset_right = 956.0
+offset_bottom = 316.0
+theme_override_colors/font_color = Color(0.99607843, 0.87058824, 0.10980392, 1)
+theme_override_fonts/font = ExtResource("2_ccer4")
+theme_override_font_sizes/font_size = 81
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Retry" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = -36.0
+offset_right = 123.5
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Retry"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = 51.0
+offset_right = 125.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

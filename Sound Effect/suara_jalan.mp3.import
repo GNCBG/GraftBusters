@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnoirv4v26xd0"
+path="res://.godot/imported/suara_jalan.mp3-3a46477b7dd432cdfb791c4f7975a212.mp3str"
+
+[deps]
+
+source_file="res://Sound Effect/suara_jalan.mp3"
+dest_files=["res://.godot/imported/suara_jalan.mp3-3a46477b7dd432cdfb791c4f7975a212.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

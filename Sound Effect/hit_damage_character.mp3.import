@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://vimljviaeebg"
+path="res://.godot/imported/hit_damage_character.mp3-5597b191075dbc1c9e3deeaebb99b83f.mp3str"
+
+[deps]
+
+source_file="res://Sound Effect/hit_damage_character.mp3"
+dest_files=["res://.godot/imported/hit_damage_character.mp3-5597b191075dbc1c9e3deeaebb99b83f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

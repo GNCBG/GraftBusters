@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://du6tsdsj1r20i"]
+[gd_scene load_steps=16 format=3 uid="uid://du6tsdsj1r20i"]
 
 [ext_resource type="Texture2D" uid="uid://bmwbfwnlwavou" path="res://art/tilesets/plains.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://cg1omn2e4p8fh" path="res://scripts/enemy.gd" id="1_qfnet"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://dx3enl8snqtmc" path="res://scenes/enemy.tscn" id="6_i7141"]
 [ext_resource type="PackedScene" uid="uid://cfej2cqv0e8pk" path="res://scenes/bank.tscn" id="9_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://dkocpmgfnd4xq" path="res://PauseMenu.tscn" id="10_e3hyu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfnet"]
 texture = ExtResource("1_4wyf3")
@@ -173,8 +174,18 @@ layer_2/tile_data = PackedInt32Array(393216, 1, 0)
 
 [node name="player" parent="." instance=ExtResource("4_k0juu")]
 
+[node name="PauseMenu" parent="player" instance=ExtResource("10_e3hyu")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="enemy" parent="." instance=ExtResource("6_i7141")]
-position = Vector2(333, 122)
+position = Vector2(381, 114)
 
 [node name="collisions" type="StaticBody2D" parent="."]
 position = Vector2(-2, -8)
@@ -185,7 +196,7 @@ scale = Vector2(2.4845, 3.40392)
 polygon = PackedVector2Array(472.932, -2.93779, 474.14, 214.165, 3.21996, 214.458, 3.21996, -3.23157, -81, 36, -55, 257, 226, 275, 524, 240, 544, 189, 516, 28, 487, -95, 163, -101, 3.62246, -3.23157)
 
 [node name="bank" parent="." instance=ExtResource("9_7r4gi")]
-position = Vector2(128, -9)
+position = Vector2(132, -10)
 
 [node name="house2" parent="." instance=ExtResource("2_4mrxx")]
 position = Vector2(-266, -147)

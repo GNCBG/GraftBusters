@@ -1,7 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://ctxd5gavgd8br"]
+[gd_scene load_steps=59 format=3 uid="uid://ctxd5gavgd8br"]
 
 [ext_resource type="Script" uid="uid://bc3rva30p2rdc" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://c0rw5qrhke75q" path="res://art/characters/player.png" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://dnoirv4v26xd0" path="res://Sound Effect/suara_jalan.mp3" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://b3yagfx3fbyl4" path="res://Sound Effect/quick-swing-sound-419581.mp3" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
 atlas = ExtResource("2_qhqgy")
@@ -447,6 +449,14 @@ wait_time = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="sfx_walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_qhqgy")
+
+[node name="sfx_swing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dqkch")
+
+[node name="sfx_hit_damage" type="AudioStreamPlayer" parent="."]
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

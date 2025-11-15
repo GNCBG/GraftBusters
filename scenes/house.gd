@@ -6,6 +6,9 @@ var health = 1000
 var max_health = 1000
 var house_alive = true
 
+@onready var sfx_hit = $sfx_hit
+@onready var sfx_hancur = $sfx_hancur
+
 var original_brightness = 1.0
 
 func _ready():
@@ -47,6 +50,8 @@ func enemy_attack():
 		health = max(0, health - damage_taken)
 		enemy_attack_cooldown = false
 		$attackCooldownTimer.start()
+		
+		sfx_hit.play()
 		
 		# OUTPUT DETAIL DAMAGE + ALERT SISA HP
 		print("⚔️ House attacked!")
@@ -90,6 +95,8 @@ func _on_demageFlashTimer_timeout():
 
 # === PROSES HANCUR ===
 func destroy_house():
+	
+	sfx_hancur.play()
 	# Brightness 0 total
 	$AnimatedSprite2D.modulate = Color(0, 0, 0, original_brightness)
 	

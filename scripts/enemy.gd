@@ -4,6 +4,8 @@ extends Node2D
 @export var stopping_distance: float = 40.0   # jarak berhenti dari target (px)
 @export var receive_hit_distance: float = 30.0  # jarak maksimum player bisa mengenai enemy
 
+@onready var sfx_death = $sfx_death
+
 # Targetting
 var target: Node2D = null
 var detected_houses: Array = []          # list house yang terdeteksi di Area2D
@@ -124,7 +126,9 @@ func deal_with_damage():
 
 			if health <= 0:
 				print("💀 ENEMY DIED! queue_free()")
+				sfx_death.play()
 				queue_free()
+				
 	else:
 		# Bisa aktifkan ini kalau mau lihat kapan kondisi tidak terpenuhi
 		# if global.player_current_attack:
