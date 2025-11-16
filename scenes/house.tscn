@@ -57,8 +57,6 @@ wait_time = 0.2
 [node name="destroyTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[connection signal="body_entered" from="attackRange" to="." method="_on_attackRange_body_entered"]
-[connection signal="body_exited" from="attackRange" to="." method="_on_attackRange_body_exited"]
 [connection signal="timeout" from="attackCooldownTimer" to="." method="_on_attackCooldownTimer_timeout"]
 [connection signal="timeout" from="demageFlashTimer" to="." method="_on_demageFlashTimer_timeout"]
 [connection signal="timeout" from="demageFlashTimer" to="." method="_on_attackCooldownTimer_timeout"]
