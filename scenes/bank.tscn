@@ -1,28 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://cfej2cqv0e8pk"]
+[gd_scene load_steps=11 format=3 uid="uid://cfej2cqv0e8pk"]
 
 [ext_resource type="Texture2D" uid="uid://dsrqpc678ua8m" path="res://Bank_100.png" id="1_24jpf"]
 [ext_resource type="Script" uid="uid://c361n8qmsplfo" path="res://scenes/bank.gd" id="1_dkbjb"]
 [ext_resource type="Texture2D" uid="uid://cr5mxb5ign370" path="res://Bank_75.png" id="2_dkbjb"]
 [ext_resource type="Texture2D" uid="uid://b3qiuecy1l4uo" path="res://Bank_50.png" id="3_xwtro"]
 [ext_resource type="Texture2D" uid="uid://b7ogqysj2poxx" path="res://Bank_25.png" id="4_7nnl3"]
+[ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="6_xwtro"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1di4w"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwtro"]
+atlas = ExtResource("6_xwtro")
+region = Rect2(120, 96, 24, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rjesy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xwtro")
+}],
+"loop": true,
+"name": &"bank_0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_24jpf")
+}],
+"loop": true,
+"name": &"bank_100",
+"speed": 5.0
 }, {
-"duration": 1.0,
-"texture": ExtResource("2_dkbjb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_xwtro")
-}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_7nnl3")
 }],
 "loop": true,
-"name": &"bank",
+"name": &"bank_25",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xwtro")
+}],
+"loop": true,
+"name": &"bank_50",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dkbjb")
+}],
+"loop": true,
+"name": &"bank_75",
 "speed": 5.0
 }]
 
@@ -30,25 +58,24 @@ animations = [{
 size = Vector2(101.5, 124.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkbjb"]
-size = Vector2(125, 137)
+size = Vector2(102, 124)
 
 [node name="bank" type="StaticBody2D"]
 script = ExtResource("1_dkbjb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_1di4w")
-animation = &"bank"
-frame_progress = 0.436483
+sprite_frames = SubResource("SpriteFrames_rjesy")
+animation = &"bank_0"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_evogc")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="attackRange" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(2.5, 4.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackRange"]
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_dkbjb")
 
 [node name="attackCooldownTimer" type="Timer" parent="."]
@@ -56,3 +83,9 @@ shape = SubResource("RectangleShape2D_dkbjb")
 [node name="demageFlashTimer" type="Timer" parent="."]
 
 [node name="destroyTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="attackRange" to="." method="_on_attackRange_body_entered"]
+[connection signal="body_exited" from="attackRange" to="." method="_on_attackRange_body_exited"]
+[connection signal="timeout" from="attackCooldownTimer" to="." method="_on_attackCooldownTimer_timeout"]
+[connection signal="timeout" from="demageFlashTimer" to="." method="_on_demageFlashTimer_timeout"]
+[connection signal="timeout" from="destroyTimer" to="." method="_on_destroyTimer_timeout"]

@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://du6tsdsj1r20i"]
+[gd_scene load_steps=16 format=3 uid="uid://du6tsdsj1r20i"]
 
 [ext_resource type="Texture2D" uid="uid://bmwbfwnlwavou" path="res://art/tilesets/plains.png" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://cg1omn2e4p8fh" path="res://scripts/enemy.gd" id="1_qfnet"]
 [ext_resource type="PackedScene" uid="uid://bdm0rltia3mgq" path="res://scenes/house.tscn" id="2_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://t2uk85t1kwn4" path="res://art/tilesets/grass.png" id="2_k0juu"]
 [ext_resource type="Texture2D" uid="uid://cbkuoptm6g83h" path="res://art/objects/objects.png" id="3_71j4m"]
 [ext_resource type="PackedScene" uid="uid://ctxd5gavgd8br" path="res://scenes/player.tscn" id="4_k0juu"]
 [ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="5_i7141"]
+[ext_resource type="PackedScene" uid="uid://dx3enl8snqtmc" path="res://scenes/enemy.tscn" id="6_i7141"]
 [ext_resource type="PackedScene" uid="uid://cfej2cqv0e8pk" path="res://scenes/bank.tscn" id="9_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://cd47poajhy0e" path="res://scenes/spawner.tscn" id="10_w7kh3"]
 
@@ -137,12 +139,14 @@ sources/3 = SubResource("TileSetAtlasSource_7r4gi")
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
+position = Vector2(436, 332)
+script = ExtResource("1_qfnet")
 
 [node name="house5" parent="." instance=ExtResource("2_4mrxx")]
 position = Vector2(121, 295)
 
 [node name="house4" parent="." instance=ExtResource("2_4mrxx")]
-position = Vector2(121, -245)
+position = Vector2(206, -188)
 
 [node name="house3" parent="." instance=ExtResource("2_4mrxx")]
 position = Vector2(574, 185)
@@ -165,7 +169,6 @@ layer_2/z_index = 1
 layer_2/tile_data = PackedInt32Array(393216, 1, 0, -851978, 2, 5, -851969, 2, 5, -917486, 2, 5, -917475, 2, 5, -196576, 2, 5, 524320, 2, 5, 589848, 2, 5, 589840, 2, 5, 589823, 2, 5, 524279, 2, 5, 262129, 2, 5, -65551, 2, 5, 21, 393218, 7, 26, 393218, 7, -65541, 393218, 7, -131077, 393218, 7, -851944, 393218, 7, -983055, 393218, 7, 196637, 655362, 7, 327705, 655362, 7, -720876, 655362, 7, -655365, 655362, 7, -655369, 655362, 7, -589825, 655362, 7, 262138, 655362, 7, 131063, 655362, 7, -65544, 655362, 7, 720891, 2, 1, 720887, 2, 1, 655348, 2, 1, 262163, 2, 1, -196584, 2, 1, -786418, 2, 1, -1114088, 2, 1, -1048580, 2, 1, 655389, 2, 0, -720866, 2, 0, -786428, 2, 0, -589837, 2, 0, 589809, 2, 0, 983042, 2, 0, -262143, 2, 5, 196624, 2, 5, -196592, 2, 5, -1179627, 2, 5, -1179648, 2, 5, 196631, 524290, 6, 30, 524290, 6, -196579, 524290, 6, -262122, 524290, 6, -1048562, 524290, 6, -1179633, 524290, 6, 196606, 524290, 6, -10, 524290, 6, -589831, 524290, 6, -720895, 524290, 6, 720900, 524290, 6, 458772, 524290, 6, 458764, 524290, 6, 196642, 524290, 6)
 
 [node name="player" parent="." instance=ExtResource("4_k0juu")]
-position = Vector2(46, -23)
 
 [node name="collisions" type="StaticBody2D" parent="."]
 position = Vector2(-2, -8)
@@ -184,32 +187,8 @@ position = Vector2(-266, -147)
 [node name="house6" parent="." instance=ExtResource("2_4mrxx")]
 position = Vector2(571, -151)
 
+[node name="enemy" parent="." instance=ExtResource("6_i7141")]
+position = Vector2(35, 56)
+
 [node name="Spawner" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(-414, 406)
-
-[node name="Spawner2" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(716, 405)
-
-[node name="Spawner3" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(719, -305)
-
-[node name="Spawner4" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(-423, -303)
-
-[node name="Spawner5" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(399, 385)
-
-[node name="Spawner6" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(-90, 392)
-
-[node name="Spawner7" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(-415, 26)
-
-[node name="Spawner8" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(179, -297)
-
-[node name="Spawner9" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(517, -296)
-
-[node name="Spawner10" parent="." instance=ExtResource("10_w7kh3")]
-position = Vector2(717, 52)
+position = Vector2(-89, -110)

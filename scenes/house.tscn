@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdm0rltia3mgq"]
+[gd_scene load_steps=7 format=3 uid="uid://bdm0rltia3mgq"]
 
 [ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="1_d7po0"]
 [ext_resource type="Script" uid="uid://7sxyb35m0x2c" path="res://scenes/house.gd" id="1_qtlar"]
-[ext_resource type="AudioStream" uid="uid://caopqy4gfrtg5" path="res://Sound Effect/hit_batu.mp3" id="3_se78b"]
-[ext_resource type="AudioStream" uid="uid://7r4fb6m6p8it" path="res://Sound Effect/batu_hancur.mp3" id="4_3bgk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rk7hg"]
 atlas = ExtResource("1_d7po0")
@@ -59,14 +57,6 @@ wait_time = 0.2
 [node name="destroyTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="sfx_hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_se78b")
-
-[node name="sfx_hancur" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3bgk5")
-
-[connection signal="body_entered" from="attackRange" to="." method="_on_attackRange_body_entered"]
-[connection signal="body_exited" from="attackRange" to="." method="_on_attackRange_body_exited"]
 [connection signal="timeout" from="attackCooldownTimer" to="." method="_on_attackCooldownTimer_timeout"]
 [connection signal="timeout" from="demageFlashTimer" to="." method="_on_demageFlashTimer_timeout"]
 [connection signal="timeout" from="demageFlashTimer" to="." method="_on_attackCooldownTimer_timeout"]
