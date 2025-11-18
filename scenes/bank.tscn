@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfej2cqv0e8pk"]
+[gd_scene load_steps=13 format=3 uid="uid://cfej2cqv0e8pk"]
 
 [ext_resource type="Texture2D" uid="uid://dsrqpc678ua8m" path="res://Bank_100.png" id="1_24jpf"]
 [ext_resource type="Script" uid="uid://c361n8qmsplfo" path="res://scenes/bank.gd" id="1_dkbjb"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://b3qiuecy1l4uo" path="res://Bank_50.png" id="3_xwtro"]
 [ext_resource type="Texture2D" uid="uid://b7ogqysj2poxx" path="res://Bank_25.png" id="4_7nnl3"]
 [ext_resource type="Texture2D" uid="uid://y4et4a8nr0qv" path="res://art/tilesets/house/House.png" id="6_xwtro"]
+[ext_resource type="AudioStream" uid="uid://caopqy4gfrtg5" path="res://Sound Effect/hit_batu.mp3" id="7_1di4w"]
+[ext_resource type="AudioStream" uid="uid://7r4fb6m6p8it" path="res://Sound Effect/batu_hancur.mp3" id="8_evogc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwtro"]
 atlas = ExtResource("6_xwtro")
@@ -55,10 +57,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evogc"]
-size = Vector2(101.5, 124.5)
+size = Vector2(101.5, 84)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkbjb"]
-size = Vector2(102, 124)
+size = Vector2(102, 83)
 
 [node name="bank" type="StaticBody2D"]
 script = ExtResource("1_dkbjb")
@@ -69,13 +71,13 @@ sprite_frames = SubResource("SpriteFrames_rjesy")
 animation = &"bank_0"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_evogc")
 
 [node name="attackRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackRange"]
-position = Vector2(0, 5)
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_dkbjb")
 
 [node name="attackCooldownTimer" type="Timer" parent="."]
@@ -83,6 +85,14 @@ shape = SubResource("RectangleShape2D_dkbjb")
 [node name="demageFlashTimer" type="Timer" parent="."]
 
 [node name="destroyTimer" type="Timer" parent="."]
+
+[node name="sfx_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_1di4w")
+
+[node name="sfx_hancur" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_evogc")
+
+[node name="sfx_lol" type="AudioStreamPlayer" parent="."]
 
 [connection signal="body_entered" from="attackRange" to="." method="_on_attackRange_body_entered"]
 [connection signal="body_exited" from="attackRange" to="." method="_on_attackRange_body_exited"]

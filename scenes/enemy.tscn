@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dx3enl8snqtmc"]
+[gd_scene load_steps=22 format=3 uid="uid://dx3enl8snqtmc"]
 
 [ext_resource type="Script" uid="uid://cg1omn2e4p8fh" path="res://scripts/enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://b2wjhwp4lvsdl" path="res://art/characters/tikus/rat_upward_2.png" id="2_otmr2"]
 [ext_resource type="Texture2D" uid="uid://b8e7l1iah4iy8" path="res://art/characters/tikus/rat_attack_behind.png" id="2_s1ycm"]
+[ext_resource type="AudioStream" uid="uid://cv428gcpraxtc" path="res://Sound Effect/enemy_death.mp3" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://c6gm6x7k6yuew" path="res://art/characters/tikus/rat_attack_front.png" id="3_shcg2"]
 [ext_resource type="Texture2D" uid="uid://c1hhn0g402rwr" path="res://art/characters/tikus/rat_death_1.png" id="3_wtq4b"]
 [ext_resource type="Texture2D" uid="uid://byi4awqseuula" path="res://art/characters/tikus/rat_attack_left.png" id="4_ile5s"]
@@ -164,6 +165,9 @@ position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_4gyqm")
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
+
+[node name="sfx_death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4ra3w")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite2D_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

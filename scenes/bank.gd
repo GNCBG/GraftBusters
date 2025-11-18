@@ -1,10 +1,18 @@
 extends StaticBody2D
 
+@onready var sfx_hit = $sfx_hit
+@onready var sfx_hancur = $sfx_hancur
+@onready var sfx_lol = $sfx_lol
+
 var enemy_inattack_range = false
 var enemy_attack_cooldown = true
 var health := 1000
 var max_health := 1000
 var bank_alive := true
+
+# ✅ VARIABEL TIMER BERTAHAN
+var survival_time: float = 0.0
+var survival_timer_running: bool = true
 
 const ANIM_FULL   = "bank_100"
 const ANIM_75     = "bank_75"
@@ -14,15 +22,26 @@ const ANIM_BROKEN = "bank_0"
 
 func _ready():
 	update_bank_sprite()
+	
+	# ✅ RESET DATA DI GLOBAL SETIAP GAME BARU
+	global.reset_game_data()
+	start_survival_timer()
+	
 	print("🏦 Bank spawned with health: ", health, "/", max_health)
 
 func _physics_process(delta):
 	enemy_attack()
 	
+	# ✅ UPDATE TIMER BERTAHAN SETIAP FRAME
+	if survival_timer_running and bank_alive:
+		survival_time += delta
+	
 	if health <= 0 and bank_alive:
 		bank_alive = false
 		health = 0
+		survival_timer_running = false  # ✅ STOP TIMER
 		print("💀 Bank has been destroyed! Final HP: ", health, "/", max_health)
+		print("⏱️ Survival time: ", format_time(survival_time))
 		destroy_bank()
 
 # ==== DETEKSI ENEMY MASUK / KELUAR AREA SERANG BANK ====
@@ -42,9 +61,11 @@ func enemy_attack():
 		var damage_taken := 20
 		var previous_health := health
 		
+		sfx_hit.play()
+		
 		health = max(0, health - damage_taken)
 		enemy_attack_cooldown = false
-		$attackCooldownTimer.start()   # PASTIKAN nama Timer = attackCooldownTimer
+		$attackCooldownTimer.start()
 		
 		print("⚔️ BANK attacked!")
 		print("   HP Before: ", previous_health)
@@ -58,7 +79,7 @@ func enemy_attack():
 		
 		# Flash merah sebentar
 		$AnimatedSprite2D.modulate = Color(1, 0.3, 0.3)
-		$demageFlashTimer.start()     # PASTIKAN nama Timer = demageFlashTimer
+		$demageFlashTimer.start()
 
 # ==== GANTI ANIMASI BERDASARKAN HP BANK ====
 func update_bank_sprite():
@@ -92,9 +113,31 @@ func _on_demageFlashTimer_timeout():
 	if bank_alive:
 		$AnimatedSprite2D.modulate = Color(1, 1, 1)
 
+# ✅ FUNCTION START SURVIVAL TIMER
+func start_survival_timer():
+	survival_time = 0.0
+	survival_timer_running = true
+	print("⏱️ Survival timer started!")
+
+# ✅ FUNCTION FORMAT WAKTU (detik -> menit:detik)
+func format_time(time_in_seconds: float) -> String:
+	var minutes = int(time_in_seconds) / 60
+	var seconds = int(time_in_seconds) % 60
+	return "%02d:%02d" % [minutes, seconds]
+
 func destroy_bank():
 	health = 0
 	update_bank_sprite()
+	sfx_hancur.play()
+	
+	# ✅ SIMPAN SURVIVAL TIME KE GLOBAL
+	global.last_survival_time = survival_time
+	global.formatted_survival_time = format_time(survival_time)
+	
+	# ✅ SIMPAN HIGH SCORE
+	global.save_high_score()
+	
+	get_tree().change_scene_to_file("res://game_over.tscn")
 	
 	$CollisionShape2D.set_deferred("disabled", true)
 	print("🚫 Bank collision disabled")

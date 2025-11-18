@@ -5,6 +5,8 @@ extends Node2D
 @export var receive_hit_distance: float = 30.0  # jarak maksimum player bisa mengenai enemy
 @export var attack_cycle_duration: float = 0.6  # berapa lama 1 siklus idle+attack (detik)
 
+@onready var sfx_death = $sfx_death
+
 # Targetting
 var target: Node2D = null
 var detected_banks: Array = []          # list bank yang terdeteksi di Area2D
@@ -238,6 +240,8 @@ func deal_with_damage() -> void:
 
 			if health <= 0:
 				_start_death_sequence()
+				sfx_death.play()
+				
 
 
 # ----------------------------

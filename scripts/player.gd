@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var sfx_walk = $sfx_walk
+@onready var sfx_swing = $sfx_swing
+@onready var sfx_hit_damage = $sfx_hit_damage
+
 var health = 1000
 var player_alive = true
 
@@ -7,6 +11,7 @@ var attack_ip = false
 
 const SPEED = 100
 var current_dir = "none"
+var is_moving = false
 
 func _ready():
 	$AnimatedSprite2D.play("front_idle")
@@ -29,31 +34,43 @@ func player_movement(delta):
 	var left_pressed  = Input.is_action_pressed("ui_left")  or Input.is_key_pressed(KEY_A)
 	var down_pressed  = Input.is_action_pressed("ui_down")  or Input.is_key_pressed(KEY_S)
 	var up_pressed    = Input.is_action_pressed("ui_up")    or Input.is_key_pressed(KEY_W)
+	var was_moving = is_moving
+	is_moving = false
 	
 	if right_pressed:
 		current_dir = "right"
 		play_anim(1)
 		velocity.x = SPEED
 		velocity.y = 0
+		is_moving = true
 	elif left_pressed:
 		current_dir = "left"
 		play_anim(1)
 		velocity.x = -SPEED
 		velocity.y = 0
+		is_moving = true
 	elif down_pressed:
 		current_dir = "down"
 		play_anim(1)
 		velocity.y = SPEED
 		velocity.x = 0
+		is_moving = true
 	elif up_pressed:
 		current_dir = "up"
 		play_anim(1)
 		velocity.y = -SPEED
 		velocity.x = 0
+		is_moving = true
 	else:
 		play_anim(0)
 		velocity.x = 0
 		velocity.y = 0
+		
+	if is_moving && !was_moving:
+		if !sfx_walk.playing:
+			sfx_walk.play()
+	elif !is_moving && was_moving:
+		sfx_walk.stop()
 	
 	move_and_slide()
 
@@ -117,6 +134,8 @@ func attack():
 		print("🗡 Player ATTACK pressed! Direction:", dir)
 		global.player_current_attack = true
 		attack_ip = true
+		
+		sfx_swing.play()
 		
 		if dir == "right":
 			$AnimatedSprite2D.flip_h = false

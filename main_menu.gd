@@ -1,7 +1,6 @@
 extends Control
 
 @onready var main_buttons: VBoxContainer = $MainButtons
-@onready var options: Panel = $Options
 
 @onready var sfx_intro = $sfx_intro
 
@@ -10,7 +9,7 @@ func _ready() -> void:
 	sfx_intro.play()
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass	
 
 func _on_start_pressed() -> void:
